@@ -47,7 +47,7 @@
         try {
             await $NDK.assertSigner()
         } catch (error) {
-            alert("you need to login.")
+            alert("you must be logged in to do that!")
             return
         }
 
@@ -72,7 +72,7 @@
         try {
             await $NDK.assertSigner()
         } catch (error) {
-            alert("you need to login.")
+            alert("you must be logged in to do that!")
             return
         }
 
@@ -90,22 +90,24 @@
 
 <div class="flex my-auto gap-3">
     {#if index > -1}
-        <span class="my-auto">{index + 1}</span>
+        <span class="font-semibold accent-gray my-auto">{index + 1}</span>
     {/if}
-    <span on:click={upvote} class="my-auto cursor-pointer">^</span>
+    <span on:click={upvote} class="my-auto cursor-pointer accent-gray">^</span>
     <div class="flex flex-col my-auto">
         <div class="flex">
             <div class="flex gap-2">
-                <a class="cursor-pointer" href={post.getMatchingTags("url")[0][1]}>{post.getMatchingTags("title")[0][1]}</a>
-                <a class="cursor-pointer" href={"/?site=" + post.getMatchingTags("r")[0][1] + ""} target="_self">({post.getMatchingTags("r")[0][1]})</a>
+                <a class="cursor-pointer font-semibold" href={post.getMatchingTags("url")[0][1]}>{post.getMatchingTags("title")[0][1]}</a>
+                <a class="cursor-pointer accent-gray" href={"/?site=" + post.getMatchingTags("r")[0][1] + ""} target="_self">({post.getMatchingTags("r")[0][1]})</a>
             </div>
         </div>
         {#if index === -1}
             <p>{post.content.split(post.getMatchingTags("url")[0][1])[1]}</p>
         {/if}
-        <small class="flex gap-3">
+        <small class="flex gap-2 accent-gray">
             <span>{noOfUpvotes} upvotes</span>
+            <span>/</span>
             <a href={"/post/" + post.encode()} target="_self">{comments.length} comments</a>
+            <span>/</span>
             <a href="https://nosta.me/{post.author.npub}">by <Name ndk={$NDK} user={post.author} /></a>
         </small>
     </div>

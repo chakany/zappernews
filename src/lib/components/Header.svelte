@@ -56,9 +56,11 @@
     </div>
     <div class="flex ml-auto my-auto">
         <a class="my-auto mr-5 cursor-pointer" href="/post" target="_self">Post</a>
-        <span class="my-auto">
+        <span class="flex my-auto gap-2">
             {#if $user}
                 <Avatar class="rounded-full w-12" ndk={$NDK} npub={$user.npub} />
+                <a on:click={() => { localStorage.clear()
+                $user = null} } class="cursor-pointer my-auto">Logout</a>
             {:else}
                 <span class="cursor-pointer" on:click={login}>Login</span>
             {/if}

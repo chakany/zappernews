@@ -19,11 +19,27 @@
 <script lang="ts">
     import {NDK, user} from "$lib/stores"
     import { Avatar } from "@nostr-dev-kit/ndk-svelte-components"
+    import { NDKNip07Signer } from "@nostr-dev-kit/ndk";
 
     $: $user?.fetchProfile()
-    setTimeout(() => { user.set($user) }, 1000)
     async function login() {
-        alert("lol not implemented yet just refresh with an nostr extension.")
+        try {
+            const signer = new NDKNip07Signer();
+            $NDK.signer = signer;
+        } catch (e) {
+            console.error(e)
+            alert("error with signer; check to see if you have a signer extension enabled")
+        }
+        const user = await $NDK.signer?.user()
+        if (!user) {
+            alert("no pubkey provided, try again")
+            return
+        }
+        const myUser = (await user);
+        localStorage.setItem("pubkey", myUser.npub)
+        myUser.ndk = $NDK;
+        // @ts-ignore
+        $user = myUser
     }
 </script>
 
@@ -31,7 +47,8 @@
     <div class="my-auto">
         <a href="/" target="_self">Nostrich News</a>
         <select>
-            <option selected>Recent 24hrs</option>
+            <option selected>Most Upvoted 24hrs</option>
+            <option>Recent 24hrs</option>
         </select>
     </div>
     <div class="flex ml-auto my-auto">

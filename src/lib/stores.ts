@@ -22,7 +22,6 @@ import { browser } from "$app/environment";
 
 export const NDK = writable(
 	new ndk({
-		signer: browser ? new NDKNip07Signer() : undefined,
 		explicitRelayUrls: [
 			"wss://relay.damus.io",
 			"wss://relay.snort.social",

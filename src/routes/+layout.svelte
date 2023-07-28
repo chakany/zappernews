@@ -19,18 +19,31 @@
 <script lang="ts">
     import "../app.css";
     import Header from "$lib/components/Header.svelte"
-    import {NDKNip07Signer} from "@nostr-dev-kit/ndk";
+	import { NDKNip07Signer, NDKUser } from "@nostr-dev-kit/ndk";
     import {NDK, user} from "$lib/stores";
     import {onMount} from "svelte";
 
     onMount(async () => {
-        const signer = new NDKNip07Signer();
-        $NDK.signer = signer
-        $user = await $NDK.signer?.user()
-        $user.ndk = $NDK;
+		const pubkey = localStorage.getItem("pubkey")
+		if (pubkey) {
+			try {
+				const signer = new NDKNip07Signer();
+				$NDK.signer = signer
+			} catch (e) {
+				console.error(e)
+				alert("error with signer; check that you have one installed or enabled")
+			}
+			$user = new NDKUser({ npub: pubkey })
+			$user.ndk = $NDK
+		}
         $NDK.connect()
     })
+
+	export let ssr = false;
+	export let csr = true;
 </script>
 
 <Header />
-<slot />
+<div class="container">
+	<slot />
+</div>

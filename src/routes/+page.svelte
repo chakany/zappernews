@@ -31,9 +31,31 @@
         }
         if (filterDomain) filter["#r"] = [filterDomain];
         posts = Array.from(await $NDK.fetchEvents(filter))
+        const postIds = []
+        for (let i = 0; i < posts.length; i++) {
+            postIds.push(posts[i].id)
+        }
+        console.log(postIds)
+        upvotes = Array.from(await $NDK.fetchEvents({
+            kinds: [7],
+            "#e": postIds
+        }))
+        posts = posts
+
+
+        // i need to sort the posts depending on the one with the highest amount of upvotes. The post id is contained inside of the 'e' tag, please use that to sort the posts.
+
+        //sort the posts array depednding on the one with the most upvotes
     })
 
     let posts: NDKEvent[] = []
+    let upvotes: NDKEvent[] = []
+
+    $: posts.sort((a, b) => {
+        const aUpvotes = upvotes.filter((upvote) => upvote.getMatchingTags("e")[0][1] === a.id).length
+        const bUpvotes = upvotes.filter((upvote) => upvote.getMatchingTags("e")[0][1] === b.id).length
+        return bUpvotes - aUpvotes
+    })
 </script>
 
 <div class="flex flex-col">

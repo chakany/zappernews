@@ -49,9 +49,8 @@
     <div class="flex gap-3 my-auto">
         <a class="font-semibold" href="/" target="_self">Nostrich News</a>
         <div class="flex gap-2">
-            <a class="{pagePath == `/` ? `font-semibold` : ``}" href="/">hot</a>
+            <a class="{pagePath == `/` ? `font-semibold` : ``}" href="/">top</a>
             <a class="{pagePath == `/recent` ? `font-semibold` : ``}" href="/recent">recent</a>
-            <a class="{pagePath == `/top` ? `font-semibold` : ``}" href="/top">top</a>
         </div>
     </div>
     <div class="flex ml-auto my-auto">

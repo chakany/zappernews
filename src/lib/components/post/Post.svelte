@@ -20,6 +20,7 @@
     import {NDK} from "$lib/stores";
     import {NDKEvent} from "@nostr-dev-kit/ndk";
     import {onMount} from "svelte";
+    import {Name} from "@nostr-dev-kit/ndk-svelte-components";
 
     export let post: NDKEvent;
     export let index: number = -1;
@@ -105,7 +106,7 @@
         <small class="flex gap-3">
             <span>{noOfUpvotes} upvotes</span>
             <a href={"/post/" + post.encode()} target="_self">{comments.length} comments</a>
-            <a href="https://nosta.me/{post.author.npub}">by {post.author.npub}</a>
+            <a href="https://nosta.me/{post.author.npub}">by <Name ndk={$NDK} user={post.author} /></a>
         </small>
     </div>
 </div>
@@ -125,7 +126,7 @@
                     <div class="flex gap-3">
                         <span>{new Date(comment.created_at * 1000).toLocaleString()}</span>
                         <span>reply soon</span>
-                        <a href="https://nosta.me/{comment.author.npub}">by {comment.author.npub}</a>
+                        <a href="https://nosta.me/{comment.author.npub}">by <Name ndk={$NDK} user={comment.author} /></a>
                     </div>
                 </div>
             {/each}

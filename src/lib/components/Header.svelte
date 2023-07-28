@@ -20,6 +20,8 @@
     import {NDK, user} from "$lib/stores"
     import { Avatar } from "@nostr-dev-kit/ndk-svelte-components"
     import { NDKNip07Signer } from "@nostr-dev-kit/ndk";
+    import { page} from "$app/stores"
+    $: pagePath = $page.url.pathname
 
     $: $user?.fetchProfile()
     async function login() {
@@ -44,12 +46,13 @@
 </script>
 
 <div class="flex mx-5 my-5">
-    <div class="my-auto">
-        <a href="/" target="_self">Nostrich News</a>
-        <select>
-            <option selected>Most Upvoted 24hrs</option>
-            <option>Recent 24hrs</option>
-        </select>
+    <div class="flex gap-3 my-auto">
+        <a class="font-semibold" href="/" target="_self">Nostrich News</a>
+        <div class="flex gap-2">
+            <a class="{pagePath == `/` ? `font-semibold` : ``}" href="/">hot</a>
+            <a class="{pagePath == `/recent` ? `font-semibold` : ``}" href="/recent">recent</a>
+            <a class="{pagePath == `/top` ? `font-semibold` : ``}" href="/top">top</a>
+        </div>
     </div>
     <div class="flex ml-auto my-auto">
         <a class="my-auto mr-5 cursor-pointer" href="/post" target="_self">Post</a>

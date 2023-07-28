@@ -17,25 +17,25 @@
   -->
 
 <script lang="ts">
-    import { NDK } from "$lib/stores"
-    import { NDKEvent } from "@nostr-dev-kit/ndk";
-    import {onMount} from "svelte";
-    import { page } from "$app/stores";
-    import PostList from "$lib/components/post/PostList.svelte";
+	import { NDK } from "$lib/stores"
+	import { NDKEvent } from "@nostr-dev-kit/ndk";
+	import {onMount} from "svelte";
+	import { page } from "$app/stores";
+	import PostList from "$lib/components/post/PostList.svelte";
 
-    onMount(async () => {
-        const filterDomain = $page.url.searchParams.get("site");
-        const filter = {
-            kinds: [2000],
-            "since": Math.floor(new Date(new Date().getTime() - (24 * 60 * 60 * 1000)).getTime() / 1000)
-        }
-        if (filterDomain) filter["#r"] = [filterDomain];
-        posts = Array.from(await $NDK.fetchEvents(filter))
-    })
+	onMount(async () => {
+		const filterDomain = $page.url.searchParams.get("site");
+		const filter = {
+			kinds: [2000],
+			"since": Math.floor(new Date(new Date().getTime() - (24 * 60 * 60 * 1000)).getTime() / 1000)
+		}
+		if (filterDomain) filter["#r"] = [filterDomain];
+		posts = Array.from(await $NDK.fetchEvents(filter))
+	})
 
-    let posts: NDKEvent[] = []
+	let posts: NDKEvent[] = []
 </script>
 
 <div class="flex flex-col">
-    <PostList posts={posts} />
+	<PostList posts={posts} />
 </div>

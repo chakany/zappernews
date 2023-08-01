@@ -41,11 +41,6 @@
             "#e": postIds
         }))
         posts = posts
-
-
-        // i need to sort the posts depending on the one with the highest amount of upvotes. The post id is contained inside of the 'e' tag, please use that to sort the posts.
-
-        //sort the posts array depednding on the one with the most upvotes
     })
 
     let posts: NDKEvent[] = []

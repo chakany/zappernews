@@ -19,6 +19,7 @@
 <script lang="ts">
     import {NDK} from "$lib/stores"
     import {NDKEvent} from "@nostr-dev-kit/ndk";
+    import { goto } from "$app/navigation";
 
     let title = ""
     let url = ""
@@ -53,6 +54,7 @@
         ]
 
         await ev.publish()
+        goto("/")
     }
 </script>
 

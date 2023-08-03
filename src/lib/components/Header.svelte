@@ -47,7 +47,7 @@
 
 <div class="flex mx-5 my-5">
     <div class="flex gap-3 my-auto">
-        <a class="font-semibold" href="/" target="_self">Nostrich News</a>
+        <a class="font-semibold" href="/" target="_self">Zapper News</a>
         <div class="flex gap-2">
             <a class="{pagePath == `/` ? `font-semibold` : ``}" href="/">top</a>
             <a class="{pagePath == `/recent` ? `font-semibold` : ``}" href="/recent">recent</a>

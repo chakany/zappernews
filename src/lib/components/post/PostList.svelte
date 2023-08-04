@@ -23,6 +23,10 @@
     export let posts: NDKEvent[];
 </script>
 
+{#if posts.length == 0}
+    No Content, go post something!
+{/if}
+
 {#each posts as post, index}
     <Post index={index} post={post} />
 {/each}
